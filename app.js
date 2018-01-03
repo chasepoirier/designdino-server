@@ -14,21 +14,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 var cors = require('cors')
- 
-var whitelist = ['http://www.designdino.co', 'http://localhost:3000']
 var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
+  origin: 'http://www.designdino.co'
 }
 
-if(app.settings.env !== 'development') {
-	app.use(cors(corsOptions));
-}
+app.use(cors(corsOptions));
 
 app.use('/', index);
 
