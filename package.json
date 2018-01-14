@@ -4,25 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node -- ./bin/www",
-    "seed": "babel-node seed/seed.js"
+    "start": "nodemon --exec babel-node -- ./bin/www"
   },
-  "dependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "bcrypt": "^1.0.3",
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.17.2",
-    "cors": "^2.8.4",
-    "dotenv": "^4.0.0",
-    "express": "^4.15.4",
-    "jsonwebtoken": "^7.4.3",
-    "lodash": "^4.17.4",
-    "mongoose": "^4.11.10",
-    "mongoose-unique-validator": "^1.0.5",
-    "morgan": "~1.9.0",
-    "nodemailer": "^4.1.0",
-    "request-promise": "^4.2.2",
-    "xml2js": "^0.4.19",
+  "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
@@ -34,6 +18,23 @@
     "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-react": "^7.3.0",
     "nodemon": "^1.11.0",
-    "prettier": "^1.9.1"
+    "prettier": "^1.9.1",
+    "morgan": "~1.9.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "jsonwebtoken": "^7.4.3",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.11.10",
+    "mongoose-unique-validator": "^1.0.5",
+    "nodemailer": "^4.1.0",
+    "request-promise": "^4.2.2",
+    "xml2js": "^0.4.19"
   }
 }

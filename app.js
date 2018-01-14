@@ -1,5 +1,3 @@
-
-
 import express from "express";
 import path from "path";
 import logger from 'morgan'
@@ -32,8 +30,8 @@ app.use(bodyParser.json());
 
 app.use(cors(corsOptions));
 
-app.use('/api', index);
-app.use('/api/users', users);
+app.use('/', index);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
