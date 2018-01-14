@@ -6,14 +6,14 @@ import logger from 'morgan'
 
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-
+import dotenv from "dotenv";
 import Promise from "bluebird";
 
 import index from './routes/index';
 import auth from "./routes/auth";
 import users from "./routes/users";
 
-
+dotenv.config();
 const app = express();
 
 
@@ -23,7 +23,7 @@ let corsOptions = {
 }
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/designdino', { useMongoClient: true });
+mongoose.connect(process.env.MONGODB_URL, { useMongoClient: true });
 
 app.use(bodyParser.json());
 app.use(logger('dev'));
