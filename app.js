@@ -1,30 +1,43 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var app = express();
 
+import express from "express";
+import path from "path";
+import logger from 'morgan'
+
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import Promise from "bluebird";
+
+import index from './routes/index';
+import auth from "./routes/auth";
+import users from "./routes/users";
+
+dotenv.config();
+const app = express();
+
+
+let cors = require('cors')
+let corsOptions = {
+  origin: process.env.HOST
+}
+
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGODB_URL, { useMongoClient: true });
+
+app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 
-var cors = require('cors')
-var corsOptions = {
-  origin: 'http://www.designdino.co'
-}
 
 app.use(cors(corsOptions));
 
-app.use('/', index);
+app.use('/api', index);
+app.use('/api/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
