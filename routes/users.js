@@ -14,7 +14,6 @@ router.post("/", (req, res) => {
   user
     .save()
     .then(userRecord => {
-    	
       // sendConfirmationEmail(userRecord);
       res.json({ user: userRecord.toAuthJSON() });
     })
