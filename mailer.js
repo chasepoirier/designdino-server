@@ -1,18 +1,36 @@
 import nodemailer from "nodemailer";
 
-if(process.env.NODE_ENV){}
 
-const from = '"Welcome to Design Dino" <info@designdino.com>';
 
-function setup() {
-  return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+let from = '"Welcome to Design Dino" <info@designdino.com>';
+
+// const setup = function;
+let setup = '';
+
+if(process.env.NODE_ENV) {
+  
+  from = "chase.n.poirier@gmail.com"
+
+  var transporter = nodemailer.createTransport({
+   service: 'gmail',
+   auth: {
+          user: 'chase.n.poirier@gmail.com',
+          pass: '#Trapac15'
+      }
   });
+
+} else {
+
+  setup = function() {
+    return nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+  }
 }
 
 export function sendConfirmationEmail(user) {
@@ -21,10 +39,10 @@ export function sendConfirmationEmail(user) {
     from,
     to: user.email,
     subject: "Welcome to Design Dino",
-    text: `
+    html: `
     To start digging for fossils. Please, confirm your email.
 
-    ${user.generateConfirmationUrl()}
+    <a href="${user.generateConfirmationUrl()}">${user.generateConfirmationUrl()}</a>
     `
   };
 
