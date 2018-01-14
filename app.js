@@ -22,8 +22,8 @@ let corsOptions = {
   origin: process.env.HOST
 }
 
-// mongoose.Promise = Promise;
-// mongoose.connect('mongodb://localhost/designdino', { useMongoClient: true });
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGODB_URL, { useMongoClient: true });
 
 app.use(bodyParser.json());
 app.use(logger('dev'));
