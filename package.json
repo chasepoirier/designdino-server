@@ -7,20 +7,6 @@
     "start": "nodemon --exec babel-node -- ./bin/www",
     "seed": "babel-node seed/seed.js"
   },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^7.2.3",
-    "babel-preset-env": "^1.6.0",
-    "eslint": "^4.6.1",
-    "eslint-config-airbnb": "^15.0.1",
-    "eslint-config-prettier": "^2.4.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-prettier": "^2.2.0",
-    "eslint-plugin-react": "^7.3.0",
-    "nodemon": "^1.11.0",
-    "prettier": "^1.9.1"
-  },
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bcrypt": "^1.0.3",
@@ -36,6 +22,18 @@
     "morgan": "~1.9.0",
     "nodemailer": "^4.1.0",
     "request-promise": "^4.2.2",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-react": "^7.3.0",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.9.1"
   }
 }
