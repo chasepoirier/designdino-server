@@ -7,7 +7,8 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import Promise from "bluebird";
 
-import index from './routes/index';
+
+// Routes
 import auth from "./routes/auth";
 import users from "./routes/users";
 
@@ -27,11 +28,21 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
-
 app.use(cors(corsOptions));
 
-app.use('/', index);
+app.use('/auth', auth);
 app.use('/users', users);
+
+app.get('/', function(req, res, next) {
+
+  if(process.env.NODE_ENV){
+    res.send('welcome to the design dino api');
+  } else {
+    res.send(' design dino api');
+  }
+  
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

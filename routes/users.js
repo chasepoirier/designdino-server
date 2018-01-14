@@ -1,10 +1,24 @@
+import express from "express";
+import User from "../models/User";
+import parseErrors from "../utils/parseErrors";
+import { sendConfirmationEmail } from "../mailer";
+import authenticate from "../middleware/authenticate";
 
-import express from 'express'
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res) {
-	res.send('users');
+router.post("/", (req, res) => {
+  const { email, password, username } = req.body.user;
+  const user = new User({ email, username });
+  user.setPassword(password);
+  user.setConfirmationToken();
+  user
+    .save()
+    .then(userRecord => {
+    	console.log('Success');
+      sendConfirmationEmail(userRecord);
+      res.json({ user: userRecord.toAuthJSON() });
+    })
+    .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
 });
 
 
