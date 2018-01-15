@@ -6,26 +6,28 @@ import authenticate from "../middleware/authenticate";
 
 const router = express.Router();
 
-// router.post("/", (req, res) => {
+// Check tomorrow - something is causing site to crash on production //
 
-//   const { email, password, username } = req.body.user;
-//   const user = new User({ email, username });
-//   console.log('Attempt', user);
+router.post("/", (req, res) => {
 
-//   user.setPassword(password);
-//   user.setConfirmationToken();
-//   user
-//     .save()
-//     .then(userRecord => {
-//       // sendConfirmationEmail(userRecord);
-//       console.log('Success', userRecord);
-//       res.json({ user: userRecord.toAuthJSON() });
-//     })
-//     .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
-// });
+  const { email, password, username } = req.body.user;
+  const user = new User({ email, username });
+  console.log('Attempt', user);
 
-router.post('/', (req, res) => {
-  res.json({user: {username: 'test'}})
+  user.setPassword(password);
+  // user.setConfirmationToken();
+  user
+    .save()
+    .then(userRecord => {
+      // sendConfirmationEmail(userRecord);
+      console.log('Success', userRecord);
+      res.json({ user: userRecord.toAuthJSON() });
+    })
+    .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
 });
+
+// router.post('/', (req, res) => {
+//   res.json({user: {username: 'test'}})
+// });
 
 module.exports = router;
