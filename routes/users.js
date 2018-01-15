@@ -23,7 +23,7 @@ router.post("/", (req, res) => {
       console.log('Success', userRecord);
       res.json({ user: userRecord.toAuthJSON() });
     })
-    .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
+    .catch(err => res.status(400).json({ errors: parseErrors(err) }));
 });
 
 // router.post('/', (req, res) => {
