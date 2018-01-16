@@ -24,7 +24,9 @@ const router = express.Router();
 router.post("/", (req, res) => {
   const { email, password, username, name } = req.body.user;
   const user = new User({ email, username });
-  res.status(400).json({ user }) 
+  user.passwordHash = 'test';
+  user.save()
+  res.json({ user: user }); 
  //  user.setPassword(password).then(hash => {
  //  	user.passwordHash = hash;
 	// user.setConfirmationToken();
