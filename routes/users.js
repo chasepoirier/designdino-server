@@ -30,16 +30,18 @@ router.post("/", (req, res) => {
   	user.passwordHash = hash;
 
 	user.setConfirmationToken();
-  	user.save()
-	.then(userRecord => {
-  		// sendConfirmationEmail(userRecord);
-  		res.json({ user: userRecord.toAuthJSON() });
-	})
-	.catch(err => {
+  	user.save(() => res.json('done'))
 
-		console.log(err);
-		res.status(400).json({ errors: parseErrors(err.errors) }) 
-	});
+
+	// .then(userRecord => {
+ //  		// sendConfirmationEmail(userRecord);
+ //  		res.json({ user: userRecord.toAuthJSON() });
+	// })
+	// .catch(err => {
+
+	// 	// console.log(err);
+	// 	res.status(400).json({ errors: parseErrors(err.errors) }) 
+	// });
 
   });
 });
