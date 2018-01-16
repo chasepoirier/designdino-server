@@ -29,11 +29,10 @@ router.post("/", (req, res) => {
 
   	user.passwordHash = hash;
 
-  	res.json({ user: user.passwordHash }); 
 	user.setConfirmationToken();
   	user.save()
 	.then(userRecord => {
-  		// sendConfirmationEmail(userRecord);
+  		sendConfirmationEmail(userRecord);
   		res.json({ user: userRecord.toAuthJSON() });
 	})
 	.catch(err => {
