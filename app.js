@@ -34,7 +34,7 @@ app.use('/auth', auth);
 app.use('/users', users);
 
 app.get('/', function(req, res, next) {
-  res.send('welcome to the design dino api', process.env.HOST);
+  res.send(process.env.HOST);
 });
 
 
