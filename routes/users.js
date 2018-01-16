@@ -24,21 +24,22 @@ const router = express.Router();
 router.post("/", (req, res) => {
   const { email, password, username, name } = req.body.user;
   const user = new User({ email, username });
-  user.setPassword(password).then(hash => {
-  	user.passwordHash = hash;
-	user.setConfirmationToken();
-  	user.save()
-	.then(userRecord => {
-  		sendConfirmationEmail(userRecord);
-  		res.json({ user: userRecord.toAuthJSON() });
-	})
-	.catch(err => {
+  res.status(400).json({ user }) 
+ //  user.setPassword(password).then(hash => {
+ //  	user.passwordHash = hash;
+	// user.setConfirmationToken();
+ //  	user.save()
+	// .then(userRecord => {
+ //  		sendConfirmationEmail(userRecord);
+ //  		res.json({ user: userRecord.toAuthJSON() });
+	// })
+	// .catch(err => {
 
-		console.log(err);
-		res.status(400).json({ errors: parseErrors(err.errors) }) 
-	});
+	// 	console.log(err);
+	// 	res.status(400).json({ errors: parseErrors(err.errors) }) 
+	// });
 
-  });
+ //  });
 });
 
 
