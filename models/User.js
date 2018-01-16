@@ -19,6 +19,9 @@ const schema = new mongoose.Schema(
       index: true,
       unique: true
     },
+    name: {
+      type: String
+    },
     passwordHash: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
     confirmationToken: { type: String, default: "" }
@@ -31,8 +34,59 @@ schema.methods.isValidPassword = function isValidPassword(password) {
 };
 
 schema.methods.setPassword = function setPassword(password) {
-  this.passwordHash = bcrypt.hashSync(password, 10);
+  // this.passwordHash = bcrypt.hashSync(password, 10);
+
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(password, 10, function(err, hash) {
+      if(err) {
+        reject(err);
+      } else {
+        resolve(hash);
+      }
+    });
+  });
 };
+
+
+// schema.methods.setPassword = function setPassword(password) {
+//   // this.passwordHash = bcrypt.hashSync(password, 10);
+  
+//   return new Promise((resolve, reject) => {
+//     bcrypt.hash(password, 10, function(err, hash) {
+//       if(err) {
+//         reject(Error(err));
+//         console.log(err);
+//       } else {
+//         this.passwordHash = hash;
+//         resolve();
+//       }
+//     });
+//   });
+// };
+
+schema.methods.createNewUser = function createNewUser(user) {
+  return new Promise((resolve, reject) => {
+
+    let passwordHash;
+
+    bcrypt.hash(user.password, 10, function(err, hash) {
+      if(err) {
+        reject(Error(err));
+      } else {
+        passwordHash = hash;
+
+        let newUser = ({ 
+          email: user.email, 
+          username: user.username, 
+          passwordHash: passwordHash, 
+          name: user.name });
+        resolve(newUser)
+        // return newUser;
+      }
+    });
+    
+  });
+}
 
 schema.methods.setConfirmationToken = function setConfirmationToken() {
   this.confirmationToken = this.generateJWT();
