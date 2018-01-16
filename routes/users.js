@@ -25,10 +25,13 @@ router.post("/", (req, res) => {
   const { email, password, username, name } = req.body.user;
   const user = new User({ email, username });
   user.passwordHash = 'test';
-  user.save()
-  res.json({ user: user }); 
- //  user.setPassword(password).then(hash => {
- //  	user.passwordHash = hash;
+  // user.save()
+  
+  user.setPassword(password).then(hash => {
+
+  	user.passwordHash = hash;
+
+  	res.json({ user: user.passwordHash }); 
 	// user.setConfirmationToken();
  //  	user.save()
 	// .then(userRecord => {
@@ -41,7 +44,7 @@ router.post("/", (req, res) => {
 	// 	res.status(400).json({ errors: parseErrors(err.errors) }) 
 	// });
 
- //  });
+  });
 });
 
 
