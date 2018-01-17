@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
       // sendConfirmationEmail(userRecord);
       res.json({ user: userRecord.toAuthJSON() });
     })
-    .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
+    .catch(err => res.status(400).json({ errors: parseErrors(err.errors), console: err }));
 
 
 	// .then(userRecord => {

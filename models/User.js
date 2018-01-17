@@ -46,19 +46,19 @@ schema.methods.isValidPassword = function isValidPassword(password) {
   
 // });
 
-schema.methods.setPassword = function setPassword(password) {
-  // this.passwordHash = bcrypt.hashSync(password, 10);
+// schema.methods.setPassword = function setPassword(password) {
+//   // this.passwordHash = bcrypt.hashSync(password, 10);
 
-  return new Promise((resolve, reject) => {
-    bcrypt.hash(password, 10, function(err, hash) {
-      if(err) {
-        reject(err);
-      } else {
-        resolve(hash);
-      }
-    });
-  });
-};
+//   return new Promise((resolve, reject) => {
+//     bcrypt.hash(password, 10, function(err, hash) {
+//       if(err) {
+//         reject(err);
+//       } else {
+//         resolve(hash);
+//       }
+//     });
+//   });
+// };
 
 
 // schema.methods.setPassword = function setPassword(password) {
