@@ -34,7 +34,7 @@ app.use('/auth', auth);
 app.use('/users', users);
 
 app.get('/', function(req, res, next) {
-  res.send(process.env.HOST, process.env.MONGODB_URL);
+  res.send(process.env.HOST + process.env.MONGODB_URL);
 });
 
 
