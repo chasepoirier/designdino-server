@@ -23,11 +23,11 @@ const router = express.Router();
 
 router.post("/", (req, res) => {
   	const { email, password, username, name } = req.body.user;
- //  	const passwordHash = password;
- //  	const user = new User({ name, email, username, passwordHash });
+  	const passwordHash = password;
+  	const user = new User({ name, email, username, passwordHash });
 
 	// user.setConfirmationToken();
-	// user.save();
+	user.save();
 
 	res.json({ user: {username: username}})
   	// user.save().then(userRecord => {
