@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
   	const passwordHash = password;
   	const user = new User({ name, email, username, passwordHash });
 
-	// user.setConfirmationToken();
+	user.setConfirmationToken();
 	user.save();
 
 	res.json({ user: {username: username}})
