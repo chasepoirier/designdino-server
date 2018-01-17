@@ -33,73 +33,13 @@ schema.methods.isValidPassword = function isValidPassword(password) {
   return bcrypt.compareSync(password, this.passwordHash);
 };
 
-// schema.pre('save', function(next) {
-
-//   const user = this;
-
-//   bcrypt.hash(this.passwordHash, 10, function(err, hash) {
-//     console.log(hash);
-//     console.log(user);
-//     user.passwordHash = hash;
-//     next();
-//   });
-  
-// });
-
-// schema.methods.setPassword = function setPassword(password) {
-//   // this.passwordHash = bcrypt.hashSync(password, 10);
-
-//   return new Promise((resolve, reject) => {
-//     bcrypt.hash(password, 10, function(err, hash) {
-//       if(err) {
-//         reject(err);
-//       } else {
-//         resolve(hash);
-//       }
-//     });
-//   });
-// };
-
-
-// schema.methods.setPassword = function setPassword(password) {
-//   // this.passwordHash = bcrypt.hashSync(password, 10);
-  
-//   return new Promise((resolve, reject) => {
-//     bcrypt.hash(password, 10, function(err, hash) {
-//       if(err) {
-//         reject(Error(err));
-//         console.log(err);
-//       } else {
-//         this.passwordHash = hash;
-//         resolve();
-//       }
-//     });
-//   });
-// };
-
-schema.methods.createNewUser = function createNewUser(user) {
-  return new Promise((resolve, reject) => {
-
-    let passwordHash;
-
-    bcrypt.hash(user.password, 10, function(err, hash) {
-      if(err) {
-        reject(Error(err));
-      } else {
-        passwordHash = hash;
-
-        let newUser = ({ 
-          email: user.email, 
-          username: user.username, 
-          passwordHash: passwordHash, 
-          name: user.name });
-        resolve(newUser)
-        // return newUser;
-      }
-    });
-    
+schema.pre('save', function(next) {
+  const user = this;
+  bcrypt.hash(this.passwordHash, 10, function(err, hash) {
+    user.passwordHash = hash;
+    next();
   });
-}
+});
 
 schema.methods.setConfirmationToken = function setConfirmationToken() {
   this.confirmationToken = this.generateJWT();
