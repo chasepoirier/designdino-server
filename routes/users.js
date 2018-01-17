@@ -27,11 +27,13 @@ router.post("/", (req, res) => {
   	const user = new User({ name, email, username, passwordHash });
 
 	user.setConfirmationToken();
-  	user.save().then(userRecord => {
+  	user.save(() => {
+  		if(err) res.json(err)
+  	}).then(userRecord => {
       // sendConfirmationEmail(userRecord);
       res.json({ user: userRecord.toAuthJSON() });
     })
-    .catch(err => res.status(400).json({ errors: parseErrors(err.errors), console: err }));
+    .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
 
 
 	// .then(userRecord => {
