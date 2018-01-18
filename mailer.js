@@ -9,15 +9,7 @@ let setup = '';
 
 if(process.env.NODE_ENV) {
   
-  from = "chase.n.poirier@gmail.com"
 
-  var transporter = nodemailer.createTransport({
-   service: 'gmail',
-   auth: {
-          user: 'chase.n.poirier@gmail.com',
-          pass: '#Trapac15'
-      }
-  });
 
 } else {
 
