@@ -34,12 +34,11 @@ app.use(cors(corsOptions));
 app.use('/auth', auth);
 app.use('/users', users);
 app.use('/profiles', profiles);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.get('/', function(req, res, next) {
-  res.send('Welcome to the design dino API');
+  res.send('Welcome to the designdino API');
 });
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 
 // catch 404 and forward to error handler
