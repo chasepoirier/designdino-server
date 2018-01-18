@@ -22,6 +22,7 @@ const schema = new mongoose.Schema(
     name: {
       type: String
     },
+    avatar: { type: String, default: null },
     passwordHash: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
     confirmationToken: { type: String, default: "" }

@@ -39,6 +39,8 @@ app.get('/', function(req, res, next) {
   res.send('Welcome to the design dino API');
 });
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
