@@ -49,18 +49,14 @@ router.post('/:username/change_avatar', upload.single('file'), (req, res) => {
   const username = req.params.username;
     
   User.findOne({ username }, 'avatar', (err, user) => {
-    console.log(user.avatar);
 
     if(user.avatar !== null) {
       const basePath = path.join(__dirname, '../uploads')
-      fs.unlink(`${basePath}/${user.avatar}`, err => {
-        if(err) console.log(err)
-      })
+      fs.unlink(`${basePath}/${user.avatar}`)
     }
-
-    user.avatar = file.filename;
-    user.save()
-    res.json({user: { avatar: user.avatar }})  
+    User.findOneAndUpdate({ username }, {$set:{ avatar: file.filename}}, { new: true }, (err, user) => {
+      res.json({user: { avatar: user.avatar }})    
+    }) 
   })
 });
 

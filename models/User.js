@@ -31,6 +31,7 @@ const schema = new mongoose.Schema(
 );
 
 schema.methods.isValidPassword = function isValidPassword(password) {
+  console.log(password, this.passwordHash);
   return bcrypt.compareSync(password, this.passwordHash);
 };
 
