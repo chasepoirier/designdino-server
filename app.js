@@ -11,6 +11,7 @@ import Promise from "bluebird";
 // Routes
 import auth from "./routes/auth";
 import users from "./routes/users";
+import profiles from './routes/profiles';
 
 dotenv.config();
 const app = express();
@@ -32,6 +33,7 @@ app.use(cors(corsOptions));
 
 app.use('/auth', auth);
 app.use('/users', users);
+app.use('/profiles', profiles);
 
 app.get('/', function(req, res, next) {
   res.send('Welcome to the design dino API');

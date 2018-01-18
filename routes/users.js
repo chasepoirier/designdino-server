@@ -20,4 +20,15 @@ router.post("/", (req, res) => {
     .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
 });
 
+router.get("/current_user", authenticate, (req, res) => {
+  res.json({
+    user: {
+      email: req.currentUser.email,
+      confirmed: req.currentUser.confirmed,
+      username: req.currentUser.username,
+      name: req.currentUser.name
+    }
+  });
+});
+
 module.exports = router;
