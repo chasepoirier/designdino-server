@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/get_profile/:username", authenticate, (req, res) => {
 	let username = req.params.username;
-  	User.findOne({ username }).then(user => {
+  	User.findOne({ username }, '-passwordHash -confirmationToken').then(user => {
   		res.json({user})
   	})
 });

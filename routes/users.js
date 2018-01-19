@@ -46,7 +46,9 @@ router.get("/current_user", authenticate, (req, res) => {
             email: req.currentUser.email,
             confirmed: req.currentUser.confirmed,
             username: req.currentUser.username,
-            name: req.currentUser.name
+            name: req.currentUser.name,
+            avatar: req.currentUser.avatar,
+            id: req.currentUser._id
         }
     });
 });

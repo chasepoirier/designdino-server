@@ -12,6 +12,7 @@ import Promise from "bluebird";
 import auth from "./routes/auth";
 import users from "./routes/users";
 import profiles from './routes/profiles';
+import fossils from './routes/fossils';
 
 dotenv.config();
 
@@ -34,7 +35,7 @@ app.use(cors(corsOptions));
 app.use('/auth', auth);
 app.use('/users', users);
 app.use('/profiles', profiles);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/fossils', fossils);
 
 app.get('/', function(req, res, next) {
   res.send('Welcome to the designdino API');
