@@ -14,8 +14,8 @@ import users from "./routes/users";
 import profiles from './routes/profiles';
 
 dotenv.config();
-const app = express();
 
+const app = express();
 
 let cors = require('cors')
 let corsOptions = {
@@ -34,7 +34,7 @@ app.use(cors(corsOptions));
 app.use('/auth', auth);
 app.use('/users', users);
 app.use('/profiles', profiles);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/', function(req, res, next) {
   res.send('Welcome to the designdino API');
