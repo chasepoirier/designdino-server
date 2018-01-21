@@ -84,7 +84,9 @@ schema.methods.toAuthJSON = function toAuthJSON() {
     confirmed: this.confirmed,
     username: this.username,
     name: this.name,
-    token: this.generateJWT()
+    token: this.generateJWT(),
+    avatar: this.avatar,
+    id: this._id
   };
 };
 
