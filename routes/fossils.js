@@ -54,8 +54,29 @@ router.get('/:id', (req, res) => {
   let url = req.params.id;
 
   Fossil.findOne({ url })
-      .populate('author', 'name email avatar')
+      .populate('author', 'name email avatar username')
       .then(fossil => res.json({ fossil }))
+});
+
+router.get('/query/user/:id', (req, res) => {
+    let user = req.params.id;
+
+
+
+    Fossil.find({ author: user })
+        .populate('author', 'name avatar username')
+        .then(fossils => {
+            res.json({ fossils })
+        })
+});
+
+router.get('/query/get_all', (req, res) => {
+
+    Fossil.find({})
+        .populate('author', 'name avatar username')
+        .then(fossils => {
+            res.json({ fossils })
+        })
 });
 
 module.exports = router;
