@@ -28,7 +28,7 @@ const upload = multer({
     })
 }).single('file');
 
-router.post('/:id/new_fossil', (req, res) => {
+router.post('/:id/new_fossil', authenticate, (req, res) => {
     
     upload(req, res, function(err) {
 
@@ -50,7 +50,7 @@ router.post('/:id/new_fossil', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticate, (req, res) => {
   let url = req.params.id;
 
   Fossil.findOne({ url })
