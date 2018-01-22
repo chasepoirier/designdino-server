@@ -48,7 +48,8 @@ router.get("/current_user", authenticate, (req, res) => {
             username: req.currentUser.username,
             name: req.currentUser.name,
             avatar: req.currentUser.avatar,
-            id: req.currentUser._id
+            id: req.currentUser._id,
+            likes: req.currentUser.likes
         }
     });
 });

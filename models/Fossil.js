@@ -20,7 +20,8 @@ const schema = new mongoose.Schema(
     },
     desc: { type: String },
     tags: [{type: String}],
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    dinoClaps: { type: Number, default: 0 }
   },
   { timestamps: true }
 );

@@ -25,7 +25,11 @@ const schema = new mongoose.Schema(
     avatar: { type: String, default: null },
     passwordHash: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
-    confirmationToken: { type: String, default: "" }
+    confirmationToken: { type: String, default: "" },
+    likes: [{
+      fossilId: { type: String },
+      count: { type: Number }
+    }]
   },
   { timestamps: true }
 );
@@ -86,7 +90,8 @@ schema.methods.toAuthJSON = function toAuthJSON() {
     name: this.name,
     token: this.generateJWT(),
     avatar: this.avatar,
-    id: this._id
+    id: this._id,
+    likes: this.likes
   };
 };
 

@@ -1,6 +1,8 @@
 import express from "express";
-import Fossil from "../models/Fossil";
 import parseErrors from "../utils/parseErrors";
+
+import Fossil from "../models/Fossil";
+import User from '../models/User';
 
 import authenticate from "../middleware/authenticate";
 
@@ -50,6 +52,35 @@ router.post('/:id/new_fossil', authenticate, (req, res) => {
     });
 });
 
+router.post('/clap_up/:id', (req, res) => {
+    let id = req.params.id;
+    let like = {
+        count: req.body.userClaps.count,
+        fossilId: id,
+        index: req.body.userClaps.index
+    }
+
+    Fossil.findOneAndUpdate({ _id: id }, { $set: { dinoClaps: req.body.fossilClaps.count } }, { new: true }).then(fossil => {
+        User.findOne({ _id: req.body.userClaps.id })
+            .then(user => {
+                let pos = user.likes.map(like => like.fossilId).indexOf(fossil.id);
+                if(pos !== -1) {
+                    user.likes[pos] = like
+                } else {
+                    user.likes.push(like)
+                }
+                return user;
+            })
+            .then(user => {
+                user.save()
+                res.json({ claps: { fossil: fossil.dinoClaps, user: { like } } })
+            })
+    })
+
+    // fossil => res.json({ claps: fossil.dinoClaps })
+
+});
+
 router.get('/:id', authenticate, (req, res) => {
   let url = req.params.id;
 
@@ -71,7 +102,6 @@ router.get('/query/user/:id', (req, res) => {
 });
 
 router.get('/query/get_all', (req, res) => {
-
     Fossil.find({})
         .populate('author', 'name avatar username')
         .then(fossils => {
