@@ -42,7 +42,7 @@ router.post('/:id/new_fossil', authenticate, (req, res) => {
             title: req.body.title,
             tags: tags,
             author: req.params.id,
-            url: shortid.generate() + "-" + url,
+            url:  url + "-" + shortid.generate(),
             desc: req.body.desc
         });
 
@@ -85,7 +85,7 @@ router.get('/:id', authenticate, (req, res) => {
   let url = req.params.id;
 
   Fossil.findOne({ url })
-      .populate('author', 'name email avatar username')
+      .populate('author', 'name title avatar username')
       .then(fossil => res.json({ fossil }))
 });
 

@@ -22,6 +22,14 @@ const schema = new mongoose.Schema(
     name: {
       type: String
     },
+    bio: {
+      type: String,
+      default: null
+    },
+    title: {
+      type: String,
+      default: null
+    },
     avatar: { type: String, default: null },
     passwordHash: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
@@ -91,7 +99,9 @@ schema.methods.toAuthJSON = function toAuthJSON() {
     token: this.generateJWT(),
     avatar: this.avatar,
     id: this._id,
-    likes: this.likes
+    likes: this.likes,
+    title: this.title,
+    bio: this.bio
   };
 };
 

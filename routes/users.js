@@ -40,6 +40,14 @@ router.post("/", (req, res) => {
         .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
 });
 
+router.post('/:id/update_user_info', (req, res) => {
+    let id = req.params.id;
+    User.findOneAndUpdate({ _id: id }, { $set: { title: req.body.title, bio: req.body.bio } }, { new: true})
+        .select('bio title')
+        .then(user => res.json({ title: user.title, bio: user.bio }));
+
+});
+
 router.get("/current_user", authenticate, (req, res) => {
     res.json({
         user: {
@@ -49,7 +57,9 @@ router.get("/current_user", authenticate, (req, res) => {
             name: req.currentUser.name,
             avatar: req.currentUser.avatar,
             id: req.currentUser._id,
-            likes: req.currentUser.likes
+            likes: req.currentUser.likes,
+            title: req.currentUser.title,
+            bio: req.currentUser.bio
         }
     });
 });
