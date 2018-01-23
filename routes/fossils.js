@@ -14,7 +14,9 @@ import multerS3 from 'multer-s3'
 import multer from 'multer';
 import AWS from 'aws-sdk';
 
-AWS.config.loadFromPath('./config.json');
+import config from '../config';
+
+AWS.config = config;
 const s3Bucket = new AWS.S3();
 
 const router = express.Router();
