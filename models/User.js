@@ -35,16 +35,17 @@ const schema = new mongoose.Schema(
     confirmed: { type: Boolean, default: false },
     confirmationToken: { type: String, default: "" },
     likes: [{
-      fossilId: { type: String },
-      count: { type: Number }
+      fossilId: { type: mongoose.Schema.Types.ObjectId, ref: 'Fossil', default: null },
+      count: { type: Number },
+      likedAt: { type: Date, default: Date.now()}
     }]
   },
   { timestamps: true }
 );
 
+
 schema.methods.isValidPassword = function isValidPassword(password) {
-  console.log(password, this.passwordHash);
-  return bcrypt.compareSync(password, this.passwordHash);
+  return bcrypt.compare(password, this.passwordHash).then(res => res)
 };
 
 schema.pre('save', function(next) {

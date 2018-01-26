@@ -65,6 +65,26 @@ router.get("/current_user", authenticate, (req, res) => {
     });
 });
 
+router.get('/:id/get_user_likes', (req, res) => {
+    let _id = req.params.id;
+    
+    function compare(a, b) {
+        if(a.likedAt < b.likedAt) return 1
+        if(a.likedAt > b.likedAt) return -1
+        return 0;
+    }
+
+    User.findOne({ _id }, 'likes -_id')
+        .populate('likes.fossilId')
+        .then(user => {
+            // console.log(user.likes);
+            user.likes.sort(compare) 
+            res.json({ likes: user.likes})
+        })
+
+        // 
+});
+
 router.post('/:username/change_avatar', (req, res) => {
 
     const username = req.params.username;

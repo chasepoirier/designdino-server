@@ -59,13 +59,18 @@ router.post('/clap_up/:id', (req, res) => {
     let like = {
         count: req.body.userClaps.count,
         fossilId: id,
-        index: req.body.userClaps.index
+        index: req.body.userClaps.index,
+        likedAt: Date.now()
     }
 
     Fossil.findOneAndUpdate({ _id: id }, { $set: { dinoClaps: req.body.fossilClaps.count } }, { new: true }).then(fossil => {
         User.findOne({ _id: req.body.userClaps.id })
             .then(user => {
-                let pos = user.likes.map(like => like.fossilId).indexOf(fossil.id);
+
+                let pos = user.likes.map(like => {
+                    return like.fossilId.toString()
+                }).indexOf(fossil.id)
+                
                 if(pos !== -1) {
                     user.likes[pos] = like
                 } else {
@@ -94,10 +99,9 @@ router.get('/:id', authenticate, (req, res) => {
 router.get('/query/user/:id', (req, res) => {
     let user = req.params.id;
 
-
-
     Fossil.find({ author: user })
         .populate('author', 'name avatar username')
+        .sort({ createdAt: -1 })
         .then(fossils => {
             res.json({ fossils })
         })
@@ -106,6 +110,7 @@ router.get('/query/user/:id', (req, res) => {
 router.get('/query/get_all', (req, res) => {
     Fossil.find({})
         .populate('author', 'name avatar username')
+        .sort({ dinoClaps: -1 })
         .then(fossils => {
             res.json({ fossils })
         })
